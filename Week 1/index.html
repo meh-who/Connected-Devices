@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"
+    integrity="sha512-WIklPM6qPCIp6d3fSSr90j+1unQHUOoWDS4sdTiR8gxUTnyZ8S2Mr8e10sKKJ/bhJgpAa/qG068RDkg6fIlNFA=="
+    crossorigin="anonymous"></script>
+  <script language="javascript" type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.29/lib/p5.serialport.js"></script>
+  <script src="script.js"></script>
+  <title>Week 1 HW</title>
+</head>
+
+<body>
+  <h1>P5.serialport Input from an Arduino</h1>
+  What it does:
+<ol>
+  <li>Rotary Encoder controls the scrolling and selection on the page</li>
+  <li>Sound Sensor detects whether you makes a sound or not</li>
+  <li><section id="serialport">Serial port: <select id="portSelector" class= "input"></select></section></li>
+</ol> 
+
+  <section id="controls"><h2>Controls</h2>
+    Power: <input type="button" id="power" value="off" class= "input" >
+    <span id="powerVal"></span><br><br><br><br><br>
+    Fan Speed: <input type="range" id="fanSpeed" min="0" max="100" value="0" class= "input">
+    <span id="fanSpeedVal"></span><br>
+    <br>
+    Encoder shaft: <span id="shaftVal">Shaft is 0</span><br>
+    Encoder button: <span id="buttonVal">Button is 0</span><br>
+    Speaking: <span id="speakingVal">silent</span><br>
+  </section>
+
+  
+</body>
+
+</html>

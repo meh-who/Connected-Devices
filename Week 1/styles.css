@@ -1,0 +1,21 @@
+input {
+    position: sticky;
+    left: 120px;
+  }
+  
+  span {
+    position: sticky;
+    left: 300px;
+  }
+  
+  section#figures {
+    display: flex;
+  }
+  
+  section#controls {
+    padding: 20px;
+  }
+  
+  figcaption {
+    font-style: italic;
+  }
