@@ -1,9 +1,6 @@
 // variables for the DOM elements:
 let portSelector;
 
-let powerButton;
-let fanSlider;
-
 let speakingButton;
 let encoderSlider;
 let encoderButton;
@@ -19,12 +16,6 @@ let lastButtonVal = 0;
 // element event listeners are  added here:
 function setup(event) {
     // add listeners for the power button and the fan speed:
-    powerButton = document.getElementById('power');
-    powerButton.addEventListener('click', setPowerState);
-
-    fanSlider = document.getElementById('fanSpeed');
-    fanSlider.addEventListener('change', setFanSpeed);
-
 
     speakingButton = document.getElementById('sensor');
     //speakingButton.addEventListener('click', setSpeakingState);
@@ -35,16 +26,11 @@ function setup(event) {
     encoderButton = document.getElementById('button');
     //encoderButton.addEventListener('click', setEncoderButton);
 
-
     // initialize the serialport object:
     serial = new p5.SerialPort(); // new instance of the serialport library
     serial.on('list', printList); // callback function for serialport list event
     serial.on('data', serialEvent); // callback function for serialport data event
     serial.list(); // list the serial ports
-
-    // set initial states of the inputs:
-    setPowerState();
-    setFanSpeed();
 
     
 }
@@ -82,17 +68,6 @@ function serialEvent() {
   // if the line is not empty, parse it to JSON:
   if (inData) {
     var sensors = JSON.parse(inData);
-    // button value:
-    // if the button's changed and it's pressed, take action:
-    if (sensors.button !== lastButtonState) {
-      if (sensors.button === 0) {
-        setPowerState(sensors.button);
-      }
-      // save button value for next time:
-      lastButtonState = sensors.button;
-    }
-    // fan slider value:
-    setFanSpeed(sensors.knob);
 
     //webpage control
     if (sensors.shaft !== lastShaftVal) {
@@ -104,7 +79,6 @@ function serialEvent() {
         lastButtonVal = sensors.button;
     }
     checkSound(sensors.sound);
-
   }
 
 }
@@ -132,33 +106,6 @@ function checkSound(sound) {
     
 }
 
-
-
-function setPowerState() {
-    // change its value, depending on its current value:
-    if (powerButton.value == 'on') {
-      powerButton.value = 'off';
-    } else {
-      powerButton.value = 'on';
-    }
-    // get the span associated with it and change its text:
-    let thisSpan = document.getElementById(powerButton.id + 'Val');
-    thisSpan.innerHTML = "Power is " + powerButton.value;
-  }
-  
-  function setFanSpeed(e) {
-   // assume e is a number:
-  var currentValue = e;
-  // but if it's an object instead, it's because
-  // the slider change event called this function. 
-  // Extract the number from it:
-    if (typeof e == 'object') {
-      currentValue = e.target.value;
-    } 
-    //get the span associated with it and change its text:
-    let thisSpan = document.getElementById(fanSlider.id + 'Val');
-    thisSpan.innerHTML = currentValue;
-  }
 
 // add a listener for the page to load:
 window.addEventListener('DOMContentLoaded', setup);
