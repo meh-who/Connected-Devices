@@ -72,7 +72,7 @@ void loop() {
   // read the sound detector:
   int sensorVal = analogRead(sensorPin);
   //if you are speaking
-  if (abs(sensorVal - lastSensorVal) >= 300){
+  if (abs(sensorVal - lastSensorVal) >= 100){
     outgoing["sound"] = true; //save bool to JSON sensor
     lastSensorVal = sensorVal;
   }
