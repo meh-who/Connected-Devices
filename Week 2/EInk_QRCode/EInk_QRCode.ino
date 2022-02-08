@@ -57,18 +57,22 @@ void setup() {
   display.fillScreen(backgroundColor);
   // update the display:
   display.display();
-  Serial.println("Enter a text message to display:");
+  //Serial.println("Enter a text message to display:");
+  Serial.println("View the data on: responsive-web-for-iot.glitch.me/");
 }
 
 void loop() {
   // if there's a string in the serial buffer, display it.
   // Then prompt for a message skip the rest of the loop:
-  if (Serial.available()) {
+  //if (Serial.available()) {
     // otherwise, read the serial input and make a QR Code:
-    String incoming = Serial.readString();
+    //String incoming = Serial.readString();
+    String incoming = "daffodil-quark-octopus.glitch.me";
     displayQrCode(incoming);
-    Serial.println("Enter a text message to display:");
-  }
+    //Serial.println("Enter a text message to display:");
+    Serial.println("View the data on: daffodil-quark-octopus.glitch.me");
+    delay(8000);
+  //}
 }
 void displayQrCode(String message) {
   Serial.print("Message length: ");
