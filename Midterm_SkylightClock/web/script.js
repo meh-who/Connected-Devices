@@ -9,6 +9,7 @@ let ledButton;
 // and its services and characteristics:
 let myDevice;
 let myCharacteristic;
+let timeCharacteristic;
 
 
 // this function is called when the page is loaded. 
@@ -21,6 +22,8 @@ function setup() {
   ledButton.addEventListener('click', writeToCharacteristic);
   deviceDiv = document.getElementById('device');
   dataDiv = document.getElementById('data');
+  calibButton = document.getElementById('calibrate');
+  calibButton.addEventListener('click', calibrateTime);
 }
 
 // connect to the peripheral:
@@ -62,6 +65,21 @@ function connectToBle() {
   }
 }
 
+function calibrateTime(){
+  if (myDevice && myDevice.gatt.connected) {
+    var date = new Date();
+    var h = date.getHours(); 
+    var m = date.getMinutes(); 
+    var s = date.getSeconds(); 
+
+    console.log(h);
+    console.log(m);
+    console.log(s);
+
+    timeCharacteristic.writeValue(new Uint8Array([r,g,b,0]));
+  }
+}
+
 // write to a characteristic:
 function writeToCharacteristic() {
   // LED state is whether or not the button is checked:
@@ -78,7 +96,7 @@ function writeToCharacteristic() {
     var r = window.img_data[0];
     var g = window.img_data[1];
     var b = window.img_data[2];
-    console.log(r);
+
     // write to characteristic now:
     // myCharacteristic.writeValue(valueToSend);
     myCharacteristic.writeValue(new Uint8Array([r,g,b,0]));

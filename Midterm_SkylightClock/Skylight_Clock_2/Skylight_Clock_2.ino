@@ -33,7 +33,7 @@ CRGB color_s = CRGB(gamma8[155], gamma8[169], gamma8[193]);
 
 BLEService ledService("26b68f48-bddc-42fa-8a03-38be7b2bfc6e");
 BLEUnsignedIntCharacteristic switchCharacteristic("26b68f48-bddc-42fa-8a03-38be7b2bfc6e", BLERead | BLEWrite);
-
+BLEUnsignedIntCharacteristic timeCharacteristic("26b68f48-bddc-42fa-8a03-38be7b2bfc6e", BLERead | BLEWrite);
 
 void setup() {
   digitalWrite(Reset, HIGH);
