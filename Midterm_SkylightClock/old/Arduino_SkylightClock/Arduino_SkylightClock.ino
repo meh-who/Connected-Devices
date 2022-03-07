@@ -79,6 +79,7 @@ void setup () {
 void loop () {
   
   //  method 2 - use rtc to animate
+  
   now = rtc.now() + TimeSpan(0, 0, 0, 11);
   h = now.hour() % 12;
   m = now.minute();
