@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Connected Device Project1</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class = "rightofwidth"> 
+        <input type="button" id="connect" value="connect">
+        <div id="device"></div>
+        <!-- LED On:<input type="checkbox" id="writeButton" value="Change LED"> -->
+    </div>
+    <br><br><br><br><br>
+    <div id="DigitalCLOCK" class="clock" onload="showTime()">
+    </div>
+    <div class = "time"> 
+        <input type="button" id="calibrate time" value="calibrate time">
+    </div>
+    <br><br>
+    <div class = "line2"><p>Upload pictures of the sky to adjuct clock color</p></div>
+    <div class="container">
+        <input type="file" id="file_upload">
+        <label for="file_upload">Upload</label>
+    </div>
+    <canvas id="canvas_picker"></canvas><br>
+    <!-- <div id="rgb">HEX: <input type="text"></div> -->
+    <!-- （这个显示hex数值，树树debug用） -->
+    <div class = "pickercenter"><div id="picked"></div></div>
+
+    <script src="script.js"></script>
+    <script  src="function.js"></script>
+
+</body>
+</html>
