@@ -32,8 +32,8 @@ CRGB color_s = CRGB(gamma8[155], gamma8[169], gamma8[193]);
 
 
 BLEService ledService("26b68f48-bddc-42fa-8a03-38be7b2bfc6e");
-BLEUnsignedIntCharacteristic switchCharacteristic("26b68f48-bddc-42fa-8a03-38be7b2bfc6e", BLERead | BLEWrite);
-BLEUnsignedIntCharacteristic timeCharacteristic("26b68f48-bddc-42fa-8a03-38be7b2bfc6e", BLERead | BLEWrite);
+BLEUnsignedIntCharacteristic switchCharacteristic("26b68f48-bddc-42fa-8a04-38be7b2bfc6e", BLERead | BLEWrite);
+BLEUnsignedIntCharacteristic timeCharacteristic("26b68f48-bddc-42fa-8a05-38be7b2bfc6e", BLERead | BLEWrite);
 
 void setup() {
   digitalWrite(Reset, HIGH);
@@ -62,6 +62,8 @@ void setup() {
   BLE.setAdvertisedService(ledService);
 
   ledService.addCharacteristic(switchCharacteristic);
+  ledService.addCharacteristic(timeCharacteristic);
+
 
   BLE.addService(ledService);
 
@@ -72,8 +74,10 @@ void setup() {
 
   // assign event handlers for characteristic
   switchCharacteristic.setEventHandler(BLEWritten, switchCharacteristicWritten);
-
   switchCharacteristic.writeValue(0);
+
+  timeCharacteristic.setEventHandler(BLEWritten, timeCharacteristicWritten);
+  timeCharacteristic.writeValue(0);
 
   // start advertising
   BLE.advertise();
@@ -109,7 +113,6 @@ void loop() {
 
   //if second changes, re-display LED
   if (s != pres) {
-    Serial.println(s);
     for (int i = 0; i < 121; i++) {
       leds_s[i % NUM_LEDS] = CRGB::Black;
     }
@@ -119,7 +122,6 @@ void loop() {
     FastLED.show();
     pres = s;
   }
-
 
 }
 
@@ -169,27 +171,27 @@ void blePeripheralConnectHandler(BLEDevice central) {
 // disconnect handler, only at the moment of successful disconnecting
 // still buggy
 void blePeripheralDisconnectHandler(BLEDevice central) {
-  for (int i = 0; i < 121; i++) {
-    leds_s[i % NUM_LEDS] = CRGB::Red;
-  }
-  FastLED.show();
-  delay(200);//milles
-  for (int i = 0; i < 121; i++) {
-    leds_s[i % NUM_LEDS] = CRGB::Black;
-  }
-  FastLED.show();
-  delay(200);
-
-  for (int i = 0; i < 121; i++) {
-    leds_s[i % NUM_LEDS] = CRGB::Red;
-  }
-  FastLED.show();
-  delay(200);
-  for (int i = 0; i < 121; i++) {
-    leds_s[i % NUM_LEDS] = CRGB::Black;
-  }
-  FastLED.show();
-  delay(200);
+//  for (int i = 0; i < 121; i++) {
+//    leds_s[i % NUM_LEDS] = CRGB::Red;
+//  }
+//  FastLED.show();
+//  delay(200);//milles
+//  for (int i = 0; i < 121; i++) {
+//    leds_s[i % NUM_LEDS] = CRGB::Black;
+//  }
+//  FastLED.show();
+//  delay(200);
+//
+//  for (int i = 0; i < 121; i++) {
+//    leds_s[i % NUM_LEDS] = CRGB::Red;
+//  }
+//  FastLED.show();
+//  delay(200);
+//  for (int i = 0; i < 121; i++) {
+//    leds_s[i % NUM_LEDS] = CRGB::Black;
+//  }
+//  FastLED.show();
+//  delay(200);
 }
 
 
@@ -244,7 +246,6 @@ void switchCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
     counter = 0;
   }
 
-
   // if second hand color changes, re-display LED
   if (counter == 1) {
     for (int i = 0; i < 121; i++) {
@@ -264,4 +265,29 @@ void switchCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
     }
   }
   FastLED.show();
+}
+
+
+//time calibration handler
+void timeCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic){
+  int hms = timeCharacteristic.value();
+  int hx = hms % 256;
+  hms >>= 8;
+  int mx = hms % 256;
+  hms >>= 8;
+  int sx = hms % 256;
+  
+  rtc.adjust(DateTime(2022,3,7,hx,mx,sx-5)); //-5 is to calibrate the position
+  now = rtc.now(); 
+  h = now.hour() % 12;
+  m = now.minute();
+  s = now.second();
+
+  Serial.print(h);
+  Serial.print(", ");
+  Serial.print(m);
+  Serial.print(", ");
+  Serial.print(s);
+  Serial.println();
+
 }

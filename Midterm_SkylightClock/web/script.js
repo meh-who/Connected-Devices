@@ -5,6 +5,7 @@ let connectButton;
 let dataDiv;
 let deviceDiv;
 let ledButton;
+let calibButton;
 // TODO these could be one JSON object representing the device
 // and its services and characteristics:
 let myDevice;
@@ -53,14 +54,21 @@ function connectToBle() {
     .catch(error => console.log('Connection failed!', error));
 
   function readCharacteristics(characteristics) {
+    console.log(characteristics);
     // add the characterisitic UUID to the device div:
     deviceDiv.innerHTML += "<br>Connected " ;
     myCharacteristic = characteristics[0];
+    timeCharacteristic = characteristics[1];
     // Get the initial value:
     characteristics[0].readValue()
       .then(data => {
         let ledState = data.getUint8(0);
         ledButton.checked = ledState;
+      });
+    characteristics[1].readValue()
+      .then(data => {
+        let timeState = data.getUint8(0);
+        calibButton.checked = timeState;
       });
   }
 }
@@ -76,7 +84,7 @@ function calibrateTime(){
     console.log(m);
     console.log(s);
 
-    timeCharacteristic.writeValue(new Uint8Array([r,g,b,0]));
+    timeCharacteristic.writeValue(new Uint8Array([h,m,s,0]));
   }
 }
 
