@@ -14,7 +14,8 @@ text-align: center;
 text-align: center;
 padding: 50px 0;
 
-font-family: Roboto;
+font-family: "Inter Regular";
+  src: url("Inter-Regular.ttf") format("ttf");
 font-style: normal;
 font-weight: normal;
 font-size: 66px;
@@ -24,11 +25,12 @@ line-height: 100%;
 
 .line2{
 margin: auto;
-width: 200px;
+width: 250px;
 padding: 10px 0;
 
 text-align: center;
-font-family: Roboto;
+font-family: "Inter Regular";
+  src: url("Inter-Regular.ttf") format("ttf");
 font-style: normal;
 font-weight: normal;
 font-size: 18px;
@@ -57,7 +59,8 @@ label{
     /* background-color: #025bee; */
     color: #4D4D4D;
     font-size: 18px;
-    font-family: Roboto;
+    font-family: "Inter Regular";
+        src: url("Inter-Regular.ttf") format("ttf");
     border: 2px solid #4D4D4D;
     font-weight: bold;
     text-align: center;
@@ -98,3 +101,35 @@ label:hover{
   font:8px/50px Arial;
   color:#fff;
 }
+
+#calibrate{
+    font-family: "Inter Regular";
+        src: url("Inter-Regular.ttf") format("ttf");
+    color: #4D4D4D;
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1.5px solid;
+    padding:4px;
+
+}
+  
+#calibrate:hover {
+    background-color: #4D4D4D; /* Green */
+    color: white;
+  }
+
+  #connect{
+    font-family: "Inter Regular";
+        src: url("Inter-Regular.ttf") format("ttf");
+    color: #4D4D4D;
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1.5px solid;
+    padding:4px;
+
+}
+  
+#connect:hover {
+    background-color: #4D4D4D; /* Green */
+    color: white;
+  }
