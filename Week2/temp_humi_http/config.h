@@ -4,7 +4,7 @@ const char WIFI_PASSWORD[] = "";
 const char SERVER_ADDRESS[] = "https://my-iot-33-interface.glitch.me";
 // sent to http
 const int  SERVER_PORT      = 80;
-// // sent to https
+// // sent to https, glitch should probably use this
 // const int  SERVER_PORT      = 443;
 
 // send to local computer

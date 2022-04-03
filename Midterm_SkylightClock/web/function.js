@@ -70,11 +70,11 @@ var rgb = R + ',' + G + ',' + B ;
 var hex = rgbToHex(R,G,B);
 $('#rgb input').val( rgb );
 $('#hex input').val('#' + hex);
-if(counter<=2){
+if(counter<=3){
 $picked.append("<span id='zeshu' style='background:#"+hex+"'>"+rgb+"</span>");
 counter++;
 }
-if(counter>2){
+if(counter>3){
 $("span").remove();
 counter =0;
 }
